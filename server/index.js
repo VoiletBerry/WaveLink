@@ -3,6 +3,9 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 import multer from "multer";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const upload = multer({ dest: "uploads/" });
 
@@ -18,8 +21,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/posts", upload.single("selectedFile"), postRoutes);
 
-const CONNECTION_URL =
-  "mongodb+srv://salmanejaz8125:U1UifAh6h9UYZ8Z1@cluster0.s0yyuws.mongodb.net/test";
+const CONNECTION_URL = process.env.MONGODB_URL;
 
 mongoose
   .connect(CONNECTION_URL, {
